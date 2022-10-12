@@ -52,10 +52,14 @@ jobs:
         id: plan
         run: terraform plan -var "env=$env"
 
-      - name: Terraform Apply
+      # - name: Terraform Apply
+      #   id: apply
+      #   run: terraform apply --auto-approve -var "env=$env"
+
+      - name: Terraform Destroy
         id: apply
-        run: terraform apply --auto-approve -var "env=$env"
-        
+        run: terraform destroy --auto-approve -var "env=$env"
+
   build_stage:
     name: deploy to stage
     needs: build_dev
@@ -80,10 +84,10 @@ jobs:
         id: init
         run: terraform init -reconfigure -backend-config="key=workflow-$env"
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -var "env=$env"
+      # - name: Terraform Apply
+      #   id: apply
+      #   run: terraform apply --auto-approve -var "env=$env"
 
-      - name: Terraform Apply
+      - name: Terraform Destroy
         id: apply
-        run: terraform apply --auto-approve -var "env=$env"
+        run: terraform destroy --auto-approve -var "env=$env"
