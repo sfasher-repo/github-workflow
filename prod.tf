@@ -132,5 +132,5 @@ resource "aws_autoscaling_attachment" "prod_web" {
 
 resource "aws_internet_gateway" "prod_igw" {
   vpc_id = aws_default_vpc.default.id
-  
+
 }
