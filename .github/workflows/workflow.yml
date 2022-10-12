@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: build and deploy
 
 # Controls when the workflow will run
 on:
@@ -17,6 +17,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build_dev:
+    name: deploy to dev
     env:
       env: dev
     # The type of runner that the job will run on
@@ -45,14 +46,14 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -reconfigure -backend-config="key=workflow$env"
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan 
+        run: terraform plan -var "env=$env"
 
   build_stage:
-    name: deploy to dev
+    name: deploy to stage
     needs: build_dev
     runs-on: ubuntu-latest
     env:
@@ -73,8 +74,8 @@ jobs:
       
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -reconfigure -backend-config="key=workflow$env"
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan 
+        run: terraform plan -var "env=$env"

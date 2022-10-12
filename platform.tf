@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "prod_s3_bucket" {
-  bucket = "stf-tf-backend"
+  bucket = "stf-tf-backend-${var.env}"
 }
 
 resource "aws_default_vpc" "default" {
