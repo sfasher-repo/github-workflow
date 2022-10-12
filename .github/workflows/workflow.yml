@@ -16,7 +16,9 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build_dev:
+    env:
+      env: dev
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -45,24 +47,34 @@ jobs:
         id: init
         run: terraform init
 
-  dev:
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan 
+
+  build_stage:
     name: deploy to dev
-    needs: build
+    needs: build_dev
     runs-on: ubuntu-latest
+    env:
+      env: stage
     steps:
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: eu-west-2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
 
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
 
-      # - name: Checkout
-      #   uses: actions/checkout@v3        
+      - name: Checkout
+        uses: actions/checkout@v3        
       
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
       - name: Terraform Plan
         id: plan
         run: terraform plan 
