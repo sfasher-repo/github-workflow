@@ -12,7 +12,10 @@ on:
       - 'bug/**'
 
   pull_request:
-    types: [opened, closed]
+    types: 
+      - opened
+      - closed
+      - labeled
   
     branches: 
       - 'release/**'
@@ -73,7 +76,7 @@ jobs:
 
   build_stage:
     name: deploy to stage
-    if:  startsWith(github.head_ref, 'feature/')
+    if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'stage'
     needs: build_dev
     runs-on: ubuntu-latest
     env:
@@ -106,7 +109,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if:  startsWith(github.head_ref, 'feature/')
+    if:  startsWith(github.head_ref, 'feature/') && github.event.pull_request.merged == true
     needs: build_stage
     runs-on: ubuntu-latest
     env:
