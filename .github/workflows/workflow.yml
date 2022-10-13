@@ -12,15 +12,13 @@ on:
       - 'bug/**'
 
   pull_request:
-    types: [ opened, closed, labeled ]
+    types: [opened, closed]
   
     branches: 
       - 'release/**'
       - 'feature/**'
       - 'bug/**'
       - main
-
-  
   
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,7 +28,7 @@ jobs:
   # This workflow contains a single job called "build"
   build_dev:
     name: deploy to dev
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || startsWith(github.head_ref, 'feature/')
     env:
       env: dev
     # The type of runner that the job will run on
@@ -108,7 +106,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'prod'
+    if:  startsWith(github.head_ref, 'feature/')
     needs: build_stage
     runs-on: ubuntu-latest
     env:
