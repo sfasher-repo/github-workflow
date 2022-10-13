@@ -12,7 +12,9 @@ on:
       - 'bug/**'
 
   pull_request:
-    types: [ opened, labeled]
+    types:
+      - labeled
+      - opened
   
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
