@@ -5,11 +5,10 @@ name: build and deploy
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events
-  # push:
-  #   branches: 
-  #     - 'release/**'
-  #     - 'feature/**'
-  #     - 'bug/**'
+
+  push:
+    branches: 
+      - main
 
   pull_request:
     types: 
@@ -112,7 +111,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if: github.event.label.name == 'prod'
+    if: github.event_name == 'push'
     # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'prod'
     needs: build_stage
     runs-on: ubuntu-latest
