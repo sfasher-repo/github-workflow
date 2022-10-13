@@ -102,7 +102,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if: startsWith(github.head_ref, 'feature/') || github.event.label.name == 'release'
+    if: startsWith(github.head_ref, 'feature/') && github.event.label.name == 'release'
     needs: build_stage
     runs-on: ubuntu-latest
     env:
