@@ -10,6 +10,10 @@ on:
       - 'release/**'
       - 'feature/**'
       - 'bug/**'
+  
+  label:
+    types:
+      - created
 
   pull_request:
     types:
@@ -69,7 +73,7 @@ jobs:
 
   build_stage:
     name: deploy to stage
-    if: github.event.label.name == 'stage'
+    if: github.event.pull_request
     needs: build_dev
     runs-on: ubuntu-latest
     env:
@@ -102,7 +106,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if: github.event.label.name == 'release'
+    if: github.event.pull_request
     needs: build_stage
     runs-on: ubuntu-latest
     env:
