@@ -13,6 +13,9 @@ on:
   pull_request:
     branches:
       - main
+      - 'release/**'
+      - 'feature/**'
+      - 'bug/**'
   issues:
     types:
       - labeled
