@@ -65,17 +65,10 @@ jobs:
         id: plan
         run: terraform plan -var "env=$env"
 
-      # - name: Terraform Apply
-      #   id: apply
-      #   run: terraform apply --auto-approve -var "env=$env"
-
-#       - name: Terraform Destroy
-#         id: apply
-#         run: terraform destroy --auto-approve -var "env=$env"
-
   build_stage:
     name: deploy to stage
-    if: github.event.label.name == 'stage' || github.event.label.name == 'prod'
+    # if: github.event.label.name == 'stage' || github.event.label.name == 'prod'
+    if: contains(toJson(github.event.pull_request.labels.*.name), 'stage')
     # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'stage'
     needs: build_dev
     runs-on: ubuntu-latest
@@ -99,18 +92,10 @@ jobs:
         id: init
         run: terraform init -reconfigure -backend-config="key=workflow-$env"
 
-      # - name: Terraform Apply
-      #   id: apply
-      #   run: terraform apply --auto-approve -var "env=$env"
-
-#       - name: Terraform Destroy
-#         id: apply
-#         run: terraform destroy --auto-approve -var "env=$env"
 
   build_prod:
     name: deploy to prod
     if: github.event.pull_request.merged == true
-    # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'prod'
     runs-on: ubuntu-latest
     env:
       env: prod
@@ -132,10 +117,3 @@ jobs:
         id: init
         run: terraform init -reconfigure -backend-config="key=workflow-$env"
 
-      # - name: Terraform Apply
-      #   id: apply
-      #   run: terraform apply --auto-approve -var "env=$env"
-
-#       - name: Terraform Destroy
-#         id: apply
-#         run: terraform destroy --auto-approve -var "env=$env"
