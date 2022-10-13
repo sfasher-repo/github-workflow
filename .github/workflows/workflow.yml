@@ -14,11 +14,8 @@ on:
     types:
       - created 
   pull_request:
-    branches:
-      - main
-      - 'release/**'
-      - 'feature/**'
-      - 'bug/**'
+    types:
+      - opened
   
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,7 +25,7 @@ jobs:
   # This workflow contains a single job called "build"
   build_dev:
     name: deploy to dev
-    if: github.event_name == 'push'
+    if: startsWith(github.head_ref, 'feature/')
     env:
       env: dev
     # The type of runner that the job will run on
@@ -73,7 +70,7 @@ jobs:
 
   build_stage:
     name: deploy to stage
-    if: github.event.pull_request
+    if: startsWith(github.head_ref, 'feature/')
     needs: build_dev
     runs-on: ubuntu-latest
     env:
@@ -106,9 +103,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if:
-      github.event_name == 'pull_request' &&
-      github.event.label == 'release'
+    if: startsWith(github.head_ref, 'feature/')
     needs: build_stage
     runs-on: ubuntu-latest
     env:
