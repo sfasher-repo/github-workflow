@@ -78,7 +78,8 @@ jobs:
 
   build_stage:
     name: deploy to stage
-    if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'stage'
+    if: github.event.label.name == 'stage'
+    # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'stage'
     needs: build_dev
     runs-on: ubuntu-latest
     env:
@@ -111,7 +112,8 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'prod'
+    if: github.event.label.name == 'prod'
+    # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'prod'
     needs: build_stage
     runs-on: ubuntu-latest
     env:
