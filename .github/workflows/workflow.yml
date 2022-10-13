@@ -12,7 +12,7 @@ on:
       - 'bug/**'
   pull_request:
     branches:
-      - main
+      - 'main'
       - 'release/**'
       - 'feature/**'
       - 'bug/**'
