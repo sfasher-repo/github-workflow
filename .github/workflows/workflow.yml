@@ -4,12 +4,19 @@ name: build and deploy
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on pull request events
+  # Triggers the workflow on push or pull request events
+  # push:
+  #   branches: 
+  #     - 'release/**'
+  #     - 'feature/**'
+  #     - 'bug/**'
+
   pull_request:
     types: 
       - opened
       - closed
       - labeled
+      - synchronize
   
     branches: 
       - 'release/**'
@@ -26,7 +33,7 @@ jobs:
   build_dev:
     name: deploy to dev
     # if: github.event_name == 'push' 
-    if: startsWith(github.head_ref, 'feature/')
+    # if: startsWith(github.head_ref, 'feature/')
     env:
       env: dev
     # The type of runner that the job will run on
@@ -71,7 +78,8 @@ jobs:
 
   build_stage:
     name: deploy to stage
-    if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'stage'
+    if: github.event.label.name == 'stage' || github.event.label.name == 'prod'
+    # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'stage'
     needs: build_dev
     runs-on: ubuntu-latest
     env:
@@ -104,7 +112,8 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'prod'
+    if: github.event.label.name == 'prod'
+    # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'prod'
     needs: build_stage
     runs-on: ubuntu-latest
     env:
