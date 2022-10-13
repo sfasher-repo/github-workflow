@@ -76,7 +76,7 @@ jobs:
 
   build_stage:
     name: deploy to stage
-    if:  startsWith(github.head_ref, 'feature/')
+    if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'stage'
     needs: build_dev
     runs-on: ubuntu-latest
     env:
