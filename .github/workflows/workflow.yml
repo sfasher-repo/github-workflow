@@ -30,6 +30,7 @@ jobs:
     name: deploy to dev
     # if: github.event_name == 'push' 
     # if: startsWith(github.head_ref, 'feature/')
+    if: github.event.pull_request.merged == false
     env:
       env: dev
     # The type of runner that the job will run on
