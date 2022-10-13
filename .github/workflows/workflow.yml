@@ -73,7 +73,7 @@ jobs:
 
   build_stage:
     name: deploy to stage
-    if: github.event_name == 'pull_request'
+    if: github.event.pull_request.open == true
     needs: build_dev
     runs-on: ubuntu-latest
     env:
