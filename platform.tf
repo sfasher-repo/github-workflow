@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "prod_s3_bucket" {
-  bucket = "stf-tf-backend"
+  bucket = "stf-tf-backend-${var.env}"
 }
 
 resource "aws_default_vpc" "default" {
@@ -22,7 +22,7 @@ resource "aws_default_subnet" "default_az2" {
 }
 
 resource "aws_security_group" "prod_web" {
-  name        = "prod-web"
+  name        = "${var.env}-web"
   description = "Allow Standard HTTP/S ports inbound and all outbound"
 
   ingress {
@@ -78,7 +78,7 @@ resource "aws_security_group" "prod_web" {
 # }
 
 resource "aws_elb" "prod_web_elb" {
-  name = "prod-web"
+  name = "${var.env}-web"
   # instances       = aws_instance.prod_web.*.id 
   subnets         = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
   security_groups = [aws_security_group.prod_web.id]
@@ -97,7 +97,7 @@ resource "aws_elb" "prod_web_elb" {
 }
 
 resource "aws_launch_template" "prod_web" {
-  name_prefix   = "prod-web"
+  name_prefix   = "${var.env}-web"
   image_id      = var.web_image_id
   instance_type = var.web_instance_type
 
@@ -132,5 +132,5 @@ resource "aws_autoscaling_attachment" "prod_web" {
 
 resource "aws_internet_gateway" "prod_igw" {
   vpc_id = aws_default_vpc.default.id
-  
+
 }

@@ -21,3 +21,7 @@ variable "web_max_size" {
 variable "web_min_size" {
   type = string
 }
+
+variable "env" {
+  type = string
+}
