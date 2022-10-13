@@ -103,7 +103,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if: =
+    if:
       github.event_name == 'pull_request' &&
       github.event.label == 'release'
     needs: build_stage
