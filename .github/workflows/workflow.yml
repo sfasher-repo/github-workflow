@@ -10,11 +10,9 @@ on:
       - 'release/**'
       - 'feature/**'
       - 'bug/**'
-  label:
-    types:
-      - created 
+
   pull_request:
-    types: [ opened, labeled, closed]
+    types: [ opened, labeled]
   
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -69,7 +67,7 @@ jobs:
 
   build_stage:
     name: deploy to stage
-    if: startsWith(github.head_ref, 'feature/')
+    if: ${{ github.event.label.name == 'stage' }}
     needs: build_dev
     runs-on: ubuntu-latest
     env:
@@ -102,7 +100,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if: github.event.pull_request.merged == true
+    if: ${{ github.event.label.name == 'release' }}
     needs: build_stage
     runs-on: ubuntu-latest
     env:
