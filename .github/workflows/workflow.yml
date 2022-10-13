@@ -113,7 +113,6 @@ jobs:
     name: deploy to prod
     if: github.event.pull_request.merged == true
     # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'prod'
-    needs: build_stage
     runs-on: ubuntu-latest
     env:
       env: prod
