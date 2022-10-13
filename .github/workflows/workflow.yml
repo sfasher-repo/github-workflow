@@ -12,7 +12,9 @@ on:
       - 'bug/**'
 
   pull_request:
-    types: [opened, closed]
+    types: 
+      - opened
+      - closed
   
     branches: 
       - 'release/**'
