@@ -6,9 +6,9 @@ name: build and deploy
 on:
   # Triggers the workflow on push or pull request events
 
-  push:
-    branches: 
-      - main
+  # push:
+  #   branches: 
+  #     - main
 
   pull_request:
     types: 
@@ -18,9 +18,9 @@ on:
       - synchronize
   
     branches: 
-      - 'release/**'
-      - 'feature/**'
-      - 'bug/**'
+      # - 'release/**'
+      # - 'feature/**'
+      # - 'bug/**'
       - main
   
   # Allows you to run this workflow manually from the Actions tab
@@ -111,7 +111,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    if: github.event_name == 'push'
+    if: github.event.pull_request.merged == true
     # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'prod'
     needs: build_stage
     runs-on: ubuntu-latest
