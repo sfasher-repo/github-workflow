@@ -69,7 +69,8 @@ jobs:
   build_stage:
     name: deploy to stage
     # if: github.event.label.name == 'stage' || github.event.label.name == 'prod'
-    if: contains(toJson(github.event.pull_request.labels.*.name), 'stage') || github.event.label.name == 'stage'
+    if: contains(fromJson('[ "pull_request"]'), github.event_name) && github.event.pull_request.merged == false
+    # if: contains(toJson(github.event.pull_request.labels.*.name), 'stage') || github.event.label.name == 'stage'
     # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'stage'
     # needs: build_dev
     runs-on: ubuntu-latest
