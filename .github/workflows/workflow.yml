@@ -6,9 +6,10 @@ name: build and deploy
 on:
   # Triggers the workflow on push or pull request events
 
-  # push:
-  #   branches: 
-  #     - main
+  push:
+    branches: 
+      - 'feature/*'
+      - 'bug/*'
 
   pull_request:
     types: 
@@ -30,7 +31,7 @@ jobs:
     name: deploy to dev
     # if: github.event_name == 'push' 
     # if: startsWith(github.head_ref, 'feature/')
-    if: github.event.pull_request.merged == false
+    if: github.event.pull_request.merged == false || github.event_name == 'push' 
     env:
       env: dev
     # The type of runner that the job will run on
@@ -68,7 +69,7 @@ jobs:
   build_stage:
     name: deploy to stage
     # if: github.event.label.name == 'stage' || github.event.label.name == 'prod'
-    if: contains(toJson(github.event.pull_request.labels.*.name), 'stage')
+    if: contains(toJson(github.event.pull_request.labels.*.name), 'stage') || github.event.label.name == 'stage'
     # if:  startsWith(github.head_ref, 'feature/') && github.event.label.name == 'stage'
     needs: build_dev
     runs-on: ubuntu-latest
