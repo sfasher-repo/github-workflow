@@ -9,3 +9,5 @@ terraform {
     region = "eu-west-2"
   }
 }
+
+# added to run test
