@@ -101,7 +101,7 @@ jobs:
     name: deploy to prod
     # needs: build_stage
     runs-on: ubuntu-latest
-    # environment: production
+    environment: production
     env:
       env: prod
     steps:
