@@ -27,13 +27,13 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build_dev:
-    name: deploy to dev
+  build_stage:
+    name: deploy to stage
     if: github.event_name == 'pull_request' && github.event.pull_request.merged == false
     # if: startsWith(github.head_ref, 'feature/')
     # if: github.event.pull_request.merged == false || github.event_name == 'push' 
     env:
-      env: dev
+      env: stage
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -66,8 +66,8 @@ jobs:
         id: plan
         run: terraform plan -var "env=$env"
 
-  build_stage:
-    name: deploy to stage
+  build_dev:
+    name: deploy to dev
     # if: github.event.ref == 'refs/heads/main'
     # if: github.event.label.name == 'stage' || github.event.label.name == 'prod'
     # if: contains(fromJson('[ "pull_request"]'), github.event_name) && github.event.pull_request.merged == true
@@ -77,7 +77,7 @@ jobs:
     # needs: build_dev
     runs-on: ubuntu-latest
     env:
-      env: stage
+      env: dev
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -99,7 +99,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    needs: build_stage
+    needs: build_dev
     runs-on: ubuntu-latest
     environment: production
     env:
