@@ -99,7 +99,7 @@ jobs:
 
   build_prod:
     name: deploy to prod
-    # needs: build_stage
+    needs: build_stage
     runs-on: ubuntu-latest
     environment: production
     env:
