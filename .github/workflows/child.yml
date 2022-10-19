@@ -29,4 +29,7 @@ jobs:
         id: init
         run: terraform init -reconfigure -backend-config="key=workflow-${{ github.event.inputs.target_platform }}"
 
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var "env=${{ github.event.inputs.target_platform }}"
 
