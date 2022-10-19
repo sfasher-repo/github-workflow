@@ -1,0 +1,22 @@
+
+name: build and deploy platform
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_platform:
+        description: 'Target Platform'
+        required: true
+        default: 'dev'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: deploy to dev
+        uses: ./.github/workflows/child.yml
+        with: 
+          target_platform: '${{ github.event.inputs.target_platform }}'
+
+    
