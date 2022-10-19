@@ -4,14 +4,14 @@ name: build and deploy platform
 on:
   workflow_dispatch:
     inputs:
-      target_platform_dev:
+      target_platform:
         description: 'Target Platform'
         required: true
         default: 'dev'
 
 
 jobs:
-  build_dev:
+  build_platform:
     uses: ./.github/workflows/child.yml
     with: 
        target_platform: '${{ github.event.inputs.target_platform }}'
