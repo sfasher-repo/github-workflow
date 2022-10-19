@@ -9,12 +9,8 @@ on:
 
 jobs:
   build_platform:
-    name: deploy to prod
-    needs: build_stage
+    name: deploy
     runs-on: ubuntu-latest
-    environment: production
-    env:
-      env: prod
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
