@@ -31,7 +31,7 @@ jobs:
        target_platform: '${{ github.event.inputs.target_platform_stage }}'
     secrets: inherit
 
-   build_prod:
+  build_prod:
     uses: ./.github/workflows/child.yml
     needs: build_stage
     with: 
