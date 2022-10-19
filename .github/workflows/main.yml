@@ -3,13 +3,14 @@ name: build and deploy platform
 
 on:
   workflow_dispatch:
-    inputs:
-      target_platform:
-        description: 'Target Platform'
-        required: false
-        # default: 'dev'
+    # inputs:
+    #   target_platform:
+    #     description: 'Target Platform'
+    #     required: true
+    #     default: 'dev'
 
 jobs:
+# Using the Matrix
   build_dev:
     strategy:
       matrix:
