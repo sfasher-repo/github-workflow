@@ -4,25 +4,36 @@ name: build and deploy platform
 on:
   workflow_dispatch:
     inputs:
-      target_platform:
+      target_platform_dev:
         description: 'Target Platform'
-        required: false
-    #  default: 'dev'
+        required: true
+        default: 'dev'
+      target_platform_stage:
+        description: 'Target Platform'
+        required: true
+        default: 'stage'
+      target_platform_prod:
+        description: 'Target Platform'
+        required: true
+        default: 'prod'        
 
 jobs:
-# Using the Matrix
   build_dev:
-    strategy:
-      matrix:
-        target: [dev, stage, prod]
     uses: ./.github/workflows/child.yml
     with: 
-       target_platform: '${{ matrix.target_platform }}'
+       target_platform: '${{ github.event.inputs.target_platform_dev }}'
     secrets: inherit
 
-  # build_stage:
-  #   uses: ./.github/workflows/child.yml
-  #   with: 
-  #      target_platform: '${{ github.event.inputs.target_platform }}'
-  #   secrets: inherit
-    
+  build_stage:
+    uses: ./.github/workflows/child.yml
+    needs: build_dev
+    with: 
+       target_platform: '${{ github.event.inputs.target_platform_stage }}'
+    secrets: inherit
+
+   build_prod:
+    uses: ./.github/workflows/child.yml
+    needs: build_stage
+    with: 
+       target_platform: '${{ github.event.inputs.target_platform_prod }}'
+    secrets: inherit   
