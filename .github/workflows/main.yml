@@ -6,7 +6,7 @@ on:
     inputs:
       target_platform:
         description: 'Target Platform'
-        required: true
+        required: false
         # default: 'dev'
 
 jobs:
