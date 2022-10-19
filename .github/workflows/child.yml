@@ -1,4 +1,4 @@
-name: build and deploy platform child
+name: build and deploy platform - child
 
 on:
   workflow_call:
