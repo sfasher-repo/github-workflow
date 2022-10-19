@@ -9,7 +9,7 @@ on:
 
 jobs:
   build_platform:
-    name: deploy
+    name: deploy - ${{ github.event.inputs.target_platform }}
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS Credentials
