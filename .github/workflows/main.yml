@@ -7,13 +7,20 @@ on:
       target_platform:
         description: 'Target Platform'
         required: true
-        default: 'dev'
+        # default: 'dev'
 
 jobs:
-  build:
+  build_dev:
     uses: ./.github/workflows/child.yml
     with: 
-      target_platform: '${{ github.event.inputs.target_platform }}'
+      target_platform: 'dev'
+      # target_platform: '${{ github.event.inputs.target_platform }}'
     secrets: inherit
 
+  build_stage:
+    uses: ./.github/workflows/child.yml
+    with: 
+      target_platform: 'stage'
+      # target_platform: '${{ github.event.inputs.target_platform }}'
+    secrets: inherit
     
