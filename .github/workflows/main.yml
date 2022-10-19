@@ -11,12 +11,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: deploy to dev
-        uses: ./.github/workflows/child.yml
-        with: 
-          target_platform: '${{ github.event.inputs.target_platform }}'
+    uses: ./.github/workflows/child.yml
+    with: 
+      target_platform: '${{ github.event.inputs.target_platform }}'
 
     
