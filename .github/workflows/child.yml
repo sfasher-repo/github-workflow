@@ -33,3 +33,7 @@ jobs:
         id: plan
         run: terraform plan -var "env=${{ github.event.inputs.target_platform }}"
 
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var "env=${{ github.event.inputs.zone }}"
+
