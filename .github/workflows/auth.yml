@@ -1,4 +1,4 @@
-name: build and deploy platform - child
+name: authenticate platform
 
 on:
   workflow_call:

@@ -1,5 +1,5 @@
 
-name: build and deploy platform - parent
+name: build and deploy platform - master
 
 on:
   workflow_dispatch:
