@@ -2,7 +2,6 @@
 name: Stage Testing Gates
 
 on:
-  pull_request:
     
   workflow_dispatch:
     inputs:
@@ -22,8 +21,7 @@ on:
 
 jobs:
   authenticate_platform:
-    if: github.event.pull_request
-    name: authenticate - ${{ github.event.inputs.target_platform }}
+    name: stage one - ${{ github.event.inputs.target_platform }}
     uses: ./.github/workflows/stage1.yml
     with: 
        target_platform: '${{ github.event.inputs.target_platform }}'
