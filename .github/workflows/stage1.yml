@@ -9,7 +9,7 @@ on:
 
 jobs:
   build_platform:
-    name: authenticate - ${{ github.event.inputs.target_platform }}
+    name: stage one - ${{ github.event.inputs.target_platform }}
     runs-on: ubuntu-latest
     env:
       zone: ${{ github.event.inputs.target_platform }}
