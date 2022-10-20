@@ -1,4 +1,4 @@
-name: authenticate platform
+name: stage gate one...
 
 on:
   workflow_call:
