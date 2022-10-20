@@ -7,8 +7,11 @@ on:
       target_platform:
         description: 'Target Platform'
         required: true
+        options:
+          - "dev"
+          - "stage"
+          - "prod"
         default: 'dev'
-
 
 jobs:
   build_platform:
