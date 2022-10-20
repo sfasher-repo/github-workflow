@@ -9,7 +9,7 @@ on:
 
 jobs:
   build_platform:
-    name: deploy - ${{ github.event.inputs.target_platform }}
+    name: deploy - $zone
     runs-on: ubuntu-latest
     env:
       zone: ${{ github.event.inputs.target_platform }}
