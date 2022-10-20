@@ -18,5 +18,4 @@ jobs:
     uses: ./.github/workflows/child.yml
     with: 
        target_platform: '${{ github.event.inputs.target_platform }}'
-       zone: 'dev'
     secrets: inherit
