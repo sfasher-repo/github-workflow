@@ -6,7 +6,7 @@ on:
       target_platform:
         required: true
         type: string
-
+        
 jobs:
   build_platform:
     name: deploy - ${{ github.event.inputs.target_platform }}
@@ -33,7 +33,4 @@ jobs:
         id: plan
         run: terraform plan -var "env=${{ github.event.inputs.target_platform }}"
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -var "env=${{ github.event.inputs.zone }}"
 
