@@ -28,6 +28,7 @@ jobs:
 
   build_platform:
     name: deploy - ${{ github.event.inputs.target_platform }}
+    needs: authenticate_platform
     uses: ./.github/workflows/build.yml
     with: 
        target_platform: '${{ github.event.inputs.target_platform }}'
