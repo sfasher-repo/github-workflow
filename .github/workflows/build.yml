@@ -1,4 +1,4 @@
-name: build and deploy platform - child
+name: build platform
 
 on:
   workflow_call:
@@ -14,13 +14,6 @@ jobs:
     env:
       zone: ${{ github.event.inputs.target_platform }}
     steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-2
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
