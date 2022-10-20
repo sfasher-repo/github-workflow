@@ -20,7 +20,7 @@ on:
       #   required: true
 
 jobs:
-  authenticate_platform:
+  stage_one:
     name: stage one - ${{ github.event.inputs.target_platform }}
     uses: ./.github/workflows/stage1.yml
     with: 
@@ -29,7 +29,7 @@ jobs:
 
   build_platform:
     name: deploy - ${{ github.event.inputs.target_platform }}
-    needs: authenticate_platform
+    needs: stage_one
     uses: ./.github/workflows/build.yml
     with: 
        target_platform: '${{ github.event.inputs.target_platform }}'
