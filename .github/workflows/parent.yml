@@ -13,10 +13,10 @@ on:
           - "dev"
           - "stage"
           - "prod"
-      environment:
-        description: "Environment to run build against"
-        type: environment
-        required: true
+      # environment:
+      #   description: "Environment to run build against"
+      #   type: environment
+      #   required: true
 
 jobs:
   build_platform:

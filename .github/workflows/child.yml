@@ -6,11 +6,13 @@ on:
       target_platform:
         required: true
         type: string
-        
+
 jobs:
   build_platform:
     name: deploy - ${{ github.event.inputs.target_platform }}
     runs-on: ubuntu-latest
+    env:
+      zone: ${{ github.event.inputs.target_platform }}
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -27,10 +29,10 @@ jobs:
       
       - name: Terraform Init
         id: init
-        run: terraform init -reconfigure -backend-config="key=workflow-${{ github.event.inputs.target_platform }}"
+        run: terraform init -reconfigure -backend-config="key=workflow-$zone"
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var "env=${{ github.event.inputs.target_platform }}"
+        run: terraform plan -var "env=$zone"
 
 
