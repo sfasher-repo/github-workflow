@@ -1,5 +1,5 @@
 
-name: build and deploy platform - master
+name: Stage Testing Gates
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ on:
 jobs:
   authenticate_platform:
     name: authenticate - ${{ github.event.inputs.target_platform }}
-    uses: ./.github/workflows/auth.yml
+    uses: ./.github/workflows/stage1.yml
     with: 
        target_platform: '${{ github.event.inputs.target_platform }}'
     secrets: inherit
@@ -32,5 +32,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with: 
        target_platform: '${{ github.event.inputs.target_platform }}'
+    secrets: inherit
 
 
