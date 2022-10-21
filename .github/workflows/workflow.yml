@@ -11,12 +11,12 @@ on:
   #     - 'feature/*'
   #     - 'bug/*'
 
-  # pull_request:
-  #   types: 
-  #     - opened
-  #     - closed
-  #     # - labeled
-  #     - synchronize
+  pull_request:
+    types: 
+      - opened
+      - closed
+      # - labeled
+      - synchronize
   
   #   branches: 
   #     - main
