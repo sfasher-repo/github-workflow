@@ -9,10 +9,10 @@ on:
 
 jobs:
   build_platform:
-    name: stage one - ${{ github.event.inputs.target }}
+    name: stage one - ${{ matrix.target }}
     runs-on: ubuntu-latest
     env:
-      zone: ${{ github.event.inputs.target }}
+      zone: ${{ matrix.target }}
     steps:
       - name: Stage 1 Test
         run: |
