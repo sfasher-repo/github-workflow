@@ -1,0 +1,25 @@
+name: stage gate one...
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        required: true
+        type: string
+
+jobs:
+  build_platform:
+    name: stage one - ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    env:
+      zone: ${{ matrix.target }}
+    steps:
+      - name: Stage 1 Test
+        run: |
+          echo "Stage 1 workflow test"
+          echo $zone
+
+
+
+
+

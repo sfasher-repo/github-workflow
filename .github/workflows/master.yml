@@ -35,4 +35,10 @@ jobs:
        target_platform: '${{ github.event.inputs.target_platform }}'
     secrets: inherit
 
-
+  matrix_build:
+    strategy:
+      matrix:
+          target: [dev, stage, prod]
+    uses: ./.github/workflows/matrix.yml
+    with:
+      target: ${{ matrix.target }}
